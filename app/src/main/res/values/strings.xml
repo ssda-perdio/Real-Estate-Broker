@@ -13,4 +13,9 @@
     <string name="sign_in">Sign In</string>
     <string name="or">or</string>
     <string name="log_in">Log in</string>
+    <string name="todo">TODO</string>
+    <string name="welcome_to_app_name">Welcome to *App name*</string>
+    <string name="reset_passpwrd">Reset Passpwrd</string>
+    <string name="register" />
+    <string name="sign_up">Sign Up</string>
 </resources>
