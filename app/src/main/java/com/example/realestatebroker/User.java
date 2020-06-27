@@ -150,11 +150,11 @@ public class User {
     }
 
     public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+        this.dateOfBirth = (Date)dateOfBirth.clone();
     }
 
     public void setDateOfRegisteration(Date dateOfRegisteration) {
-        this.dateOfRegisteration = dateOfRegisteration;
+        this.dateOfRegisteration = (Date)dateOfRegisteration.clone();
     }
 
     public void setActivated(boolean activated) {
@@ -193,20 +193,32 @@ public class User {
         }
         this.emails.add(email);
     }
-    // need to check the index & if it is not len of oen
+    // need to check the index & if it is not len of one
     public void removePreference(int index) {
+        if(index<0 || index>= preferences.size()){
+            throw new IndexOutOfBoundsException("index is " + index + " but the size is " + preferences.size());
+        }
         this.preferences.remove(index);
     }
 
     public void removeCreditCard(int index) {
+        if(index<0 || index>= creditCards.size()){
+            throw new IndexOutOfBoundsException("index is " + index + " but the size is " + creditCards.size());
+        }
         this.creditCards.remove(index);
     }
 
     public void removePhoneNumber(int index) {
+        if(index<0 || index>= phoneNumbers.size()){
+            throw new IndexOutOfBoundsException("index is " + index + " but the size is " + phoneNumbers.size());
+        }
         this.phoneNumbers.remove(index);
     }
 
     public void removeEmail(int index) {
+        if(index<0 || index>= emails.size()){
+            throw new IndexOutOfBoundsException("index is " + index + " but the size is " + emails.size());
+        }
         this.emails.remove(index);
     }
 
@@ -214,7 +226,7 @@ public class User {
         return firstName +" " +lastName + " " + gender + " . is Active?" + isActivated ;
     }
 
-    public User clone() {
+    public Object clone() {
         return new User(this.firstName, this.lastName, this.gender, this.phoneNumbers, this.emails, this.password,
         this.dateOfBirth, this.dateOfRegisteration, this.preferences, this.creditCards, this.isActivated,
         this.isVerified);
