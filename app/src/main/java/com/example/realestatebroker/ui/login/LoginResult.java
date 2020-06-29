@@ -1,6 +1,10 @@
 package com.example.realestatebroker.ui.login;
 
+import android.content.Intent;
+
 import androidx.annotation.Nullable;
+
+import com.example.realestatebroker.data.Result;
 
 /**
  * Authentication result : success (user details) or error message.

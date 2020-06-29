@@ -5,6 +5,7 @@ import android.app.Activity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -23,10 +24,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.realestatebroker.R;
+import com.example.realestatebroker.SignUp;
 
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
+    private Button signup;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,13 @@ public class LoginActivity extends AppCompatActivity {
                 if (loginFormState.getPasswordError() != null) {
                     passwordEditText.setError(getString(loginFormState.getPasswordError()));
                 }
+            }
+        });
+        signup = (Button) findViewById(R.id.signup);
+        signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Signup();
             }
         });
 
@@ -113,8 +123,13 @@ public class LoginActivity extends AppCompatActivity {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
+                Signup();
             }
         });
+    }
+    public void Signup() {
+        Intent intent = new Intent(this, SignUp.class);
+        startActivity(intent);
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
