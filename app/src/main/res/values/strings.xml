@@ -18,4 +18,10 @@
     <string name="reset_passpwrd">Reset Passpwrd</string>
     <string name="register" />
     <string name="sign_up">Sign Up</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_paaword">Confirm Paaword</string>
+    <string name="last_name">Last Name</string>
+    <string name="first_name">First Name</string>
+    <string name="phone_number">Phone Number</string>
 </resources>
