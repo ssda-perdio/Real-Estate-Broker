@@ -17,10 +17,10 @@ public class User {
     private boolean isActivated;
     private boolean isVerified;
 
-    public User(String firstName, String lastName, char[] password, String phoneNumber, String email){
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = password;
+    public User(String firstName, String lastName, String password, String phoneNumber, String email){
+        this.setFirstNameName(firstName);
+        this.setLastName(lastName);
+        this.setPassword(password);
         this.addPhoneNumber(phoneNumber);
         this.addEmail(email);
         this.dateOfRegisteration = new Date();
@@ -89,61 +89,52 @@ public class User {
     }
 
     public void setFirstNameName(String name) {
-        if (isNameLegal(name)) {
+        if (isNameValid(name)) {
             this.firstName = name;
         }
     }
 
     public void setLastName(String name) {
-        if (isNameLegal(name)) {
+        if (isNameValid(name)) {
             this.lastName = name;
         }
     }
 
-    public boolean isNameLegal(String name){
+    public static boolean isNameValid(String name){
         if(name == null){
             throw new NullPointerException("NullPointerException");
         }
         String name_no_spaces = name.replaceAll(" ","");
         if(!name_no_spaces.matches("[a-zA-Z]+")){
             throw new IllegalArgumentException("The name should only include letters");
-        }
-        if(name_no_spaces.length() < 2){
+        } else if(name_no_spaces.length() < 2){
             throw new IllegalArgumentException("The name should be longer than 1 letters");
-        }
-        if(name.length() > 24){
+        } else if(name.length() > 24){
             throw new IllegalArgumentException("The name length should be less than 24");
         }
         return true;
-
     }
 
     public void setPassword(String password) {
-        if(isPasswordLegal(password)){
+        if(isPasswordValid(password)){
             this.password = password.toCharArray();
         }
     }
 
-    public boolean isPasswordLegal(String password){
+    public static boolean isPasswordValid(String password){
         if(password == null){
             throw new NullPointerException("NullPointerException");
-        }
-        if(password.length()< 8){
+        } else if(password.length()< 8){
             throw new IllegalArgumentException("The password should be at least 8 char");
-        }
-        if(password.length()> 24){
+        } else if(password.length()> 24){
             throw new IllegalArgumentException("The password should be at most 24 char");
-        }
-        if(password.equals(password.toUpperCase())){
+        } else if(password.equals(password.toUpperCase())){
             throw new IllegalArgumentException("The password should have small char");
-        }
-        if(password.equals(password.toLowerCase())){
+        } else if(password.equals(password.toLowerCase())){
             throw new IllegalArgumentException("The password should have cap char");
-        }
-        if(password.matches(".*\\d.*")){
+        } else if(!password.matches(".*\\d.*")){
             throw new IllegalArgumentException("The password should have digit");
-        }
-        if(password.matches(".*[!@#$%^&*].*")){
+        } else if(!password.matches(".*[!@#$%^&*].*")){
             throw new IllegalArgumentException("The password should have Special char");
         }
         return true;
@@ -184,16 +175,40 @@ public class User {
         if( this.phoneNumbers == null){
             this.phoneNumbers  = new ArrayList<String>();
         }
-        this.phoneNumbers.add(phoneNumber);
+
+        if(isPhoneNumberValid(phoneNumber)){
+            this.phoneNumbers.add(phoneNumber);
+        }
+    }
+
+    public static boolean isPhoneNumberValid(String phoneNumber){
+        if(phoneNumber == null){
+            throw new NullPointerException("NullPointerException");
+        } else if(!phoneNumber.matches(".*\\d.*")) {
+            throw new IllegalArgumentException("The phoneNumber is not valid");
+        }
+        return true;
     }
 
     public void addEmail(String email) {
         if( this.emails == null){
             this.emails  = new ArrayList<String>();
         }
-        this.emails.add(email);
+
+        if(isEmailValid(email)){
+            this.emails.add(email);
+        }
     }
-    // need to check the index & if it is not len of one
+
+    public static boolean isEmailValid(String email){
+        if(email == null){
+            throw new NullPointerException("NullPointerException");
+        } else if(!email.matches("^.+@.+\\..+$")) {
+            throw new IllegalArgumentException("The email is not valid");
+        }
+        return true;
+    }
+
     public void removePreference(int index) {
         if(index<0 || index>= preferences.size()){
             throw new IndexOutOfBoundsException("index is " + index + " but the size is " + preferences.size());
